@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Main stack for EC2, Lambda, Roles
+
+Resources:
+  IAMRolesStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./roles.yml
+  
+  LambdaStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: IAMRolesStack
+    Properties:
+      TemplateURL: ./lambda-deploy.yml
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0c02fb55956c7d316  # Amazon Linux 2, change if needed
+      InstanceType: t2.micro
+      KeyName: your-key-name  # Replace with your EC2 key pair name
+      SecurityGroups:
+        - !Ref EC2SecurityGroup
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          yum update -y
+          yum install -y httpd
+          systemctl enable httpd
+          systemctl start httpd
+          echo "<html><h1>Hello from EC2!</h1></html>" > /var/www/html/index.html
+
+  EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable HTTP access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0

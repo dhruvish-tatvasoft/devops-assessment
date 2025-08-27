@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+  pre_build:
+    commands:
+      - echo Installing dependencies...
+      - pip install -r lambda/requirements.txt -t lambda/
+  build:
+    commands:
+      - echo Packaging Lambda function...
+      - cd lambda
+      - zip -r ../lambda.zip .
+      - cd ..
+  post_build:
+    commands:
+      - echo Build completed.
+artifacts:
+  files:
+    - lambda.zip
