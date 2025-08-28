@@ -33,5 +33,5 @@ Resources:
       Runtime: python3.9
       Timeout: 10
 
-  DeploymentBucket:
-    Type: AWS::S3::Bucket
+  # DeploymentBucket:
+  #   Type: AWS::S3::Bucket
