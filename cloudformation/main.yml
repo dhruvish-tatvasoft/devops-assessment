@@ -16,7 +16,7 @@ Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-0c02fb55956c7d316  # Amazon Linux 2, change if needed
+      ImageId: ami-0dc8f589abe99f538  # Amazon Linux 2, change if needed
       InstanceType: t2.micro
       KeyName: devops-assessment-key  # Replace with your EC2 key pair name
       SecurityGroups:
