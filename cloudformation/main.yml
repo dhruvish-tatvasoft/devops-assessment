@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Main stack for EC2, Lambda, Roles
 
+Parameters:
+  LatestAmiId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+    
 Resources:
   IAMRolesStack:
     Type: AWS::CloudFormation::Stack
@@ -12,11 +17,6 @@ Resources:
     DependsOn: IAMRolesStack
     Properties:
       TemplateURL: https://devops-assessment-artifacts-ddc-20250828.s3.eu-north-1.amazonaws.com/lambda-deploy.yml
-
-  Parameters:
-  LatestAmiId:
-    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
-    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
     
   EC2Instance:
     Type: AWS::EC2::Instance
