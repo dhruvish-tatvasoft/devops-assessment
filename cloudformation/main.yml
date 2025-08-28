@@ -13,11 +13,16 @@ Resources:
     Properties:
       TemplateURL: https://devops-assessment-artifacts-ddc-20250828.s3.eu-north-1.amazonaws.com/lambda-deploy.yml
 
+  Parameters:
+  LatestAmiId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+    
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-0dc8f589abe99f538  # Amazon Linux 2, change if needed
-      InstanceType: t2.micro
+      ImageId: !Ref LatestAmiId  # Amazon Linux 2, change if needed
+      InstanceType: t3.micro
       KeyName: devops-assessment-key  # Replace with your EC2 key pair name
       SecurityGroups:
         - !Ref EC2SecurityGroup
