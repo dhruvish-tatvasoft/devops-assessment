@@ -28,7 +28,7 @@ Resources:
       Handler: app.lambda_handler
       Role: !GetAtt LambdaExecutionRole.Arn
       Code:
-        S3Bucket: !Ref DeploymentBucket
+        S3Bucket: devops-assessment-artifacts-ddc-20250828
         S3Key: lambda.zip
       Runtime: python3.9
       Timeout: 10
