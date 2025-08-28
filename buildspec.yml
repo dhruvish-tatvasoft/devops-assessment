@@ -16,8 +16,11 @@ phases:
       - cd ..
   post_build:
     commands:
+      - echo Uploading Lambda zip to S3...
+      - aws s3 cp lambda.zip s3://devops-assessment-artifacts-ddc-20250828/lambda.zip
       - echo Build completed.
 artifacts:
   files:
     - lambda.zip
-    - '**/*'
+    - cloudformation/main.yml
+    - cloudformation/lambda-deploy.yml
