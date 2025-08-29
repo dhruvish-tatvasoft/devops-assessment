@@ -3,6 +3,7 @@ Resources:
   CodePipelineServiceRole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: CodePipelineServiceRole-DevOpsAssessment
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -17,17 +18,22 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - s3:*
+                  - s3:GetObject
+                  - s3:ListBucket
                   - codebuild:*
                   - cloudformation:*
                   - iam:PassRole
                   - lambda:*
                   - ec2:*
-                Resource: "*"
+                Resource:
+                  - "arn:aws:s3:::devops-assessment-artifacts-ddc-20250828"
+                  - "arn:aws:s3:::devops-assessment-artifacts-ddc-20250828/*"
+                  - "*"
 
   CodeBuildServiceRole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: CodeBuildServiceRole-DevOpsAssessment
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -42,7 +48,8 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - s3:*
+                  - s3:GetObject
+                  - s3:ListBucket
                   - cloudformation:*
                   - lambda:*
                   - ec2:*
