@@ -3,6 +3,7 @@ Resources:
   LambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: LambdaExecutionRole-DevOpsAssessment
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -24,18 +25,16 @@ Resources:
               - Effect: Allow
                 Action:
                   - s3:GetObject
-                Resource: "*"
+                Resource: "arn:aws:s3:::devops-assessment-artifacts-ddc-20250828/*"
+
   LambdaFunction:
     Type: AWS::Lambda::Function
     DependsOn: LambdaExecutionRole
     Properties:
       Handler: app.lambda_handler
-      Role: arn:aws:iam::303252428982:role/LambdaExecutionRole
+      Role: !GetAtt LambdaExecutionRole.Arn
       Code:
         S3Bucket: devops-assessment-artifacts-ddc-20250828
         S3Key: lambda.zip
       Runtime: python3.9
       Timeout: 10
-
-  # DeploymentBucket:
-  #   Type: AWS::S3::Bucket
