@@ -30,7 +30,7 @@ Resources:
     DependsOn: LambdaExecutionRole
     Properties:
       Handler: app.lambda_handler
-      Role: !GetAtt LambdaExecutionRole.Arn
+      Role: arn:aws:iam::303252428982:role/LambdaExecutionRole
       Code:
         S3Bucket: devops-assessment-artifacts-ddc-20250828
         S3Key: lambda.zip
