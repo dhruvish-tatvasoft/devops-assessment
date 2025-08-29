@@ -21,6 +21,10 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource: "*"
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                Resource: arn:aws:s3:::devops-assessment-artifacts-ddc-20250828/*
 
   LambdaFunction:
     Type: AWS::Lambda::Function
